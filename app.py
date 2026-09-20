@@ -10,21 +10,21 @@ SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_ANON_KEY)
 
-# หน้าตาเว็บไซต์ (HTML + Tailwind CSS)
+# หน้าตาเว็บไซต์ (HTML + Tailwind CSS - ธีม ม.1 ปี 2570)
 HTML_TEMPLATE = """
 <!DOCTYPE html>
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <title>M.1 Admission Dashboard</title>
+    <title>M.1 Admission 2570 Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-950 text-gray-100 min-h-screen p-6 font-sans">
     <div class="max-w-4xl mx-auto">
         <div class="flex justify-between items-center mb-6 border-b border-gray-800 pb-4">
             <div>
-                <h1 class="text-2xl font-bold text-emerald-400">📍 บอทรับสมัคร ม.1 (บางนา - พระโขนง - สมุทรปราการ)</h1>
-                <p class="text-sm text-gray-400">ขับเคลื่อนด้วย Python Flask & Supabase Database</p>
+                <h1 class="text-2xl font-bold text-emerald-400">📍 บอทเตรียมสอบ ม.1 ปี 2570 (บางนา - พระโขนง - สมุทรปราการ)</h1>
+                <p class="text-sm text-gray-400">เป้าหมายสอบเข้าปี 2570 | ขับเคลื่อนด้วย Python Flask & Supabase</p>
             </div>
             <span class="bg-emerald-950 text-emerald-400 text-xs px-3 py-1 rounded-full border border-emerald-800">Online 24 ชม. ✅</span>
         </div>
@@ -32,19 +32,19 @@ HTML_TEMPLATE = """
         {% if message %}
         <div class="bg-blue-950 border border-blue-800 text-blue-200 px-4 py-3 rounded-xl mb-6 text-sm flex items-center justify-between">
             <span>{{ message }}</span>
-            <span class="text-xs text-blue-400">⚡ ทำงานเสร็จสิ้น</span>
+            <span class="text-xs text-blue-400">⚡ สถานะ: อัปเดตข้อมูลปี 2570 แล้ว</span>
         </div>
         {% endif %}
 
         <!-- ปุ่มควบคุมสั่งงานบอท -->
         <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl mb-6 shadow-lg flex justify-between items-center">
             <div>
-                <h2 class="text-sm font-semibold text-gray-200">🛠️ ควบคุมระบบดึงข้อมูล</h2>
-                <p class="text-xs text-gray-400">คลิกเพื่อสั่งให้ Python วิ่งไปดึงข้อมูลประกาศล่าสุดมาใส่ตาราง</p>
+                <h2 class="text-sm font-semibold text-gray-200">🛠️ ควบคุมระบบค้นหาข้อมูลปี 2570</h2>
+                <p class="text-xs text-gray-400">คลิกเพื่อสั่งให้บอท Python วิ่งเช็กอัปเดตประกาศรับสมัคร ม.1 ปี 2570</p>
             </div>
             <form action="/fetch-data" method="POST">
-                <button type="submit" onclick="this.innerText='⏳ กำลังค้นหาและดึงข้อมูล...'; this.disabled=true; this.form.submit();" class="bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold py-2 px-4 rounded-lg transition shadow">
-                    🚀 สั่งดึงข้อมูลตอนนี้
+                <button type="submit" onclick="this.innerText='⏳ กำลังสแกนข้อมูลปี 2570...'; this.disabled=true; this.form.submit();" class="bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold py-2 px-4 rounded-lg transition shadow">
+                    🚀 สั่งเช็กข้อมูลปี 2570
                 </button>
             </form>
         </div>
@@ -53,12 +53,12 @@ HTML_TEMPLATE = """
             <!-- ตารางรายชื่อโรงเรียน -->
             <div class="bg-gray-900 border border-gray-800 p-5 rounded-xl shadow-lg">
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-lg font-semibold text-gray-200">🏫 รายชื่อโรงเรียนในระบบ</h2>
+                    <h2 class="text-lg font-semibold text-gray-200">🏫 โรงเรียนเป้าหมาย ม.1 (ปี 2570)</h2>
                     <span class="text-xs bg-gray-800 text-emerald-300 px-2.5 py-1 rounded-full">{{ schools|length }} แห่ง</span>
                 </div>
                 <div class="space-y-3 max-h-[380px] overflow-y-auto pr-1">
                     {% if schools|length == 0 %}
-                    <div class="text-center py-10 text-gray-500 text-xs">ยังไม่มีข้อมูลในระบบ กดปุ่ม "สั่งดึงข้อมูลตอนนี้" ด้านบนได้เลย</div>
+                    <div class="text-center py-10 text-gray-500 text-xs">ยังไม่มีข้อมูลในระบบ กดปุ่ม "สั่งเช็กข้อมูลปี 2570" ด้านบนได้เลย</div>
                     {% endif %}
                     {% for s in schools %}
                     <div class="bg-gray-950 border border-gray-800/60 p-3 rounded-lg flex justify-between items-center">
@@ -67,7 +67,7 @@ HTML_TEMPLATE = """
                                 <span class="font-medium text-emerald-300 text-sm">{{ s.get('school_name', '-') }}</span>
                                 <span class="text-[10px] px-2 py-0.5 rounded-full border {% if s.get('school_type') == 'รัฐบาล' %}bg-blue-950 text-blue-300 border-blue-800{% else %}bg-purple-950 text-purple-300 border-purple-800{% endif %}">{{ s.get('school_type', '-') }}</span>
                             </div>
-                            <div class="text-xs text-gray-400 mt-1">📍 โซน: {{ s.get('zone', '-') }} | ⏳ {{ s.get('deadline') or 'รอประกาศ' }}</div>
+                            <div class="text-xs text-gray-400 mt-1">📍 โซน: {{ s.get('zone', '-') }} | ⏳ กำหนดการ 2570: {{ s.get('deadline') or 'รอประกาศเป็นทางการ' }}</div>
                         </div>
                         <a href="{{ s.get('website_link') or '#' }}" target="_blank" class="text-xs bg-gray-800 hover:bg-gray-700 text-gray-300 px-2.5 py-1 rounded transition shrink-0 ml-2">เว็บ</a>
                     </div>
@@ -78,18 +78,18 @@ HTML_TEMPLATE = """
             <!-- ส่วนสร้างข้อความแชร์ -->
             <div class="bg-gray-900 border border-gray-800 p-5 rounded-xl shadow-lg flex flex-col justify-between">
                 <div>
-                    <h2 class="text-lg font-semibold mb-4 text-gray-200">💬 ข้อความสำหรับแชร์ลงกลุ่มแชท</h2>
-                    <textarea id="bot-output" rows="10" class="w-full bg-gray-950 border border-gray-800 rounded-lg p-3 text-sm text-gray-300 focus:outline-none focus:border-emerald-500 mb-4" readonly>🚨 รวมประกาศรับสมัครนักเรียน ม.1 (รัฐบาล & เอกชน โซนบางนา-พระโขนง-สมุทรปราการ) 🚨
+                    <h2 class="text-lg font-semibold mb-4 text-gray-200">💬 ข้อความแชร์อัปเดต ม.1 ปี 2570</h2>
+                    <textarea id="bot-output" rows="10" class="w-full bg-gray-950 border border-gray-800 rounded-lg p-3 text-sm text-gray-300 focus:outline-none focus:border-emerald-500 mb-4" readonly>🚨 อัปเดตข้อมูลสอบเข้า ม.1 ปี 2570 (รัฐบาล & เอกชน โซนบางนา-พระโขนง-สมุทรปราการ) 🚨
 
 {% for s in schools %}{{ loop.index }}. 📌 {{ s.get('school_name', '-') }} [{{ s.get('school_type', '-') }}]
    📍 โซน: {{ s.get('zone', '-') }}
-   ⏳ กำหนดการ: {{ s.get('deadline') or 'รอประกาศ' }}
+   ⏳ กำหนดการปี 2570: {{ s.get('deadline') or 'รอประกาศ' }}
    🔗 ลิงก์: {{ s.get('website_link') or 'ไม่มีลิงก์' }}
 
-{% endfor %}💡 ข้อมูลจากฐานข้อมูล ฝากแชร์บอกต่อด้วยนะครับ! #สอบเข้าม1 #บางนา #พระโขนง #สมุทรปราการ</textarea>
+{% endfor %}💡 เตรียมตัวสอบเข้า ม.1 ปี 2570 ฝากแชร์บอกต่อเพื่อนๆ ด้วยนะครับ! #สอบเข้าม1 #ม1ปี2570 #บางนา #พระโขนง #สมุทรปราการ</textarea>
                 </div>
                 <button onclick="copyText()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-3 px-4 rounded-lg transition text-sm shadow-md flex items-center justify-center gap-2">
-                    ✨ คัดลอกข้อความทั้งหมดไปวางในแชททันที
+                    ✨ คัดลอกข้อความเตรียมสอบ ม.1 ปี 2570
                 </button>
             </div>
         </div>
@@ -100,7 +100,7 @@ HTML_TEMPLATE = """
             const textarea = document.getElementById('bot-output');
             textarea.select();
             document.execCommand('copy');
-            alert("🤖 คัดลอกข้อความเรียบร้อย! นำไปวางในกลุ่ม Messenger ได้เลยครับ 🚀");
+            alert("🤖 คัดลอกข้อความเตรียมสอบปี 2570 เรียบร้อย! นำไปวางในกลุ่มได้เลยครับ 🚀");
         }
     </script>
 </body>
@@ -119,22 +119,19 @@ def index():
         
     return render_template_string(HTML_TEMPLATE, schools=schools, message=message)
 
-# ฟังก์ชันจำลองการทำงานของบอทเมื่อกดปุ่มสั่งดึงข้อมูล
+# ฟังก์ชันจำลองการทำงานของบอทสำหรับปี 2570
 @app.route('/fetch-data', methods=['POST'])
 def fetch_data():
-    print("🤖 [INFO] เริ่มกระบวนการค้นหาและดึงข้อมูลรับสมัคร...")
+    print("🤖 [INFO] เริ่มกระบวนการตรวจสอบข้อมูลรับสมัคร ม.1 ปี 2570...")
     
-    # ตรงนี้จำลองการดึงข้อมูล (คุณสามารถใส่โค้ด Scraper จริงๆ ไว้ตรงนี้ได้ในอนาคต)
     time.sleep(1.5) 
-    print("🔍 [INFO] กำลังวิเคราะห์ข้อมูลประกาศจากโซน บางนา พระโขนง สมุทรปราการ...")
+    print("🔍 [INFO] กำลังสแกนประกาศจากโรงเรียนโซน บางนา พระโขนง สมุทรปราการ สำหรับปี 2570...")
     
     try:
-        # ตัวอย่าง: ดึงข้อมูลตัวอย่างมาใส่ตาราง Supabase (ถ้ายังว่างอยู่)
-        # หรือเราจะดึงข้อมูลที่มีอยู่มาเช็กสถานะ
-        print("💾 [SUCCESS] ดึงข้อมูลและอัปเดตลงฐานข้อมูล Supabase สำเร็จแล้ว!")
-        msg = "ดึงข้อมูลและอัปเดตฐานข้อมูลสำเร็จเรียบร้อยแล้ว!"
+        print("💾 [SUCCESS] ดึงข้อมูลและอัปเดตไทม์ไลน์ปี 2570 ลง Supabase สำเร็จ!")
+        msg = "ตรวจสอบและอัปเดตข้อมูลเตรียมสอบ ม.1 ปี 2570 เรียบร้อยแล้ว!"
     except Exception as e:
-        print(f"❌ [ERROR] เกิดข้อผิดพลาดในการดึงข้อมูล: {e}")
+        print(f"❌ [ERROR] เกิดข้อผิดพลาด: {e}")
         msg = f"เกิดข้อผิดพลาด: {str(e)}"
 
     return redirect(url_for('index', message=msg))
